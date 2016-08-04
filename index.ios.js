@@ -78,6 +78,21 @@ class BookList extends Component{
     super(props);
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
   }
+  renderRow(){
+    return (
+      <View style={styles.container}>
+        <Image
+          source={{uri: book.image}}
+          style={styles.thumbnail}
+        />
+        <View style={styles.rightContainer}>
+          <Text style={styles.title}>{book.title}</Text>
+          <Text style={styles.title}>{book.author}</Text>
+          <Text style={styles.title}>{book.rating.average}</Text>
+        </View>
+      </View>
+    )
+  }
   render(){
     let star8Books = this.props.dataSource.filter((book)=>{
       if(this.props.highRatingOnly && book.rating.average < 8.0){
@@ -89,20 +104,7 @@ class BookList extends Component{
     return (
       <ListView
         dataSource={this.ds.cloneWithRows(star8Books)}
-        renderRow={(book) => {return (
-          <View style={styles.container}>
-            <Image
-              source={{uri: book.image}}
-              style={styles.thumbnail}
-            />
-            <View style={styles.rightContainer}>
-              <Text style={styles.title}>{book.title}</Text>
-              <Text style={styles.title}>{book.author}</Text>
-              <Text style={styles.title}>{book.rating.average}</Text>
-            </View>
-          </View>
-        )}}
-        style={styles.listView}
+        renderRow={this.renderRow}
       />
     );
   }
@@ -179,10 +181,6 @@ const styles = StyleSheet.create({
   thumbnail: {
     width: 53,
     height: 81,
-  },
-  listView: {
-    paddingTop: 20,
-    backgroundColor: '#F5FCFF',
   },
 });
 
