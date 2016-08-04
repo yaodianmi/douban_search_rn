@@ -1,0 +1,3 @@
+rootProject.name = 'douban_search_rn'
+
+include ':app'
