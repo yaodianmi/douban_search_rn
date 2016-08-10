@@ -129,6 +129,8 @@ class douban_search_rn extends Component {
     this.fetchBooksFromApiAsync = this.fetchBooksFromApiAsync.bind(this);
     this.handleUserInput = this.handleUserInput.bind(this);
   }
+
+  // es7
   async fetchBooksFromApiAsync(keyword) {
     try {
       let response = await fetch(REQUEST_URL + '?q=' + keyword + '&count=10');
@@ -141,6 +143,7 @@ class douban_search_rn extends Component {
       alert('🐛🐛🐛');
     }
   }
+
   handleUserInput(keyword, highRatingOnly){
     this.setState({
         keyword: keyword,
@@ -148,15 +151,24 @@ class douban_search_rn extends Component {
     });
     this.fetchBooksFromApiAsync(keyword);
   }
+
   render() {
     return (
       <ScrollView style={styles.container}>
         <Logo />
-        <SearchBox keyword={this.state.keyword} highRatingOnly={this.state.highRatingOnly} onUserInput={this.handleUserInput} />
-        <BookList dataSource={this.state.dataSource} highRatingOnly={this.state.highRatingOnly}/>
+        <SearchBox
+          keyword={this.state.keyword}
+          highRatingOnly={this.state.highRatingOnly}
+          onUserInput={this.handleUserInput}
+        />
+        <BookList
+          dataSource={this.state.dataSource}
+          highRatingOnly={this.state.highRatingOnly}
+        />
       </ScrollView>
     );
   }
+
 }
 
 const styles = StyleSheet.create({
